@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+<h2>Home Page</h2>
+
+<section>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="ip_address" placeholder="192.168.10.0/24">
+        <input type="number" name="num_subnets" placeholder="How many subnets">
+        <input type="submit" name="Calculate">
+    </form>
+
+    <div>
+        {% for subnet in subnets %}
+
+        <div>
+            <p>Subnet Mask: {{ subnet.subnet_mask }}</p>
+            <p>Network IP Address: {{ subnet.network_ip_address }}</p>
+            <p>Broadcast IP Address: {{ subnet.broadcast_ip_address }}</p>
+            <p>Total IP Address Range: {{ subnet.total_ip_address_range.0 }} - {{ subnet.total_ip_address_range.1 }}</p>
+            <p>Usable Hosts Range: {{ subnet.usable_hosts_range.0 }} - {{ subnet.usable_hosts_range.1 }}</p>
+            <p>Default Gateway: {{ subnet.default_gateway }}</p>
+        </div>
+        <br>
+        
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}
