@@ -22,6 +22,7 @@
     --main-text-color: #000000;
     --muted-text-color: #808080;
 
+    --smallest-margin: 0.875rem;
     --small-margin: 1.25rem;
     --medium-margin: 2.5rem;
     --big-margin: 5.313rem;
@@ -115,4 +116,64 @@ p {
 .nav_btn img {
     width: 20px;
     height: 20px;
+}
+
+/* ===================== FOOTER SECTION ===================== */
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer_logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: var(--smallest-margin);
+}
+
+.copyright_text {
+    font-size: var(--smallest-font-size);
+    font-weight: var(--medium-font-weight);
+    color: var(--muted-text-color);
+    margin-bottom: var(--smallest-margin);
+}
+
+.footer .social_icons {
+    display: flex;
+    column-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--big-margin);
+}
+
+.social_icons img {
+    width: 15px;
+    height: auto;
+}
+
+.footer hr {
+    width: 85%;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 1.875rem;
+}
+
+.footer .michele_profile {
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--big-margin);
+}
+
+.profile_image img {
+    width: 25px;
+    height: auto;
+}
+
+.michele_profile p {
+    font-style: italic;
+    font-size: var(--smallest-font-size);
+    color: var(--muted-text-color);
+    font-weight: var(--regular-font-weight);
 }

@@ -12,10 +12,16 @@
     <title>{% block title %} {% endblock title %}</title>
 </head>
 <body>
+    <!--================================ NAVIGATION BAR ================================-->
     {% include 'navbar.html' %}
 
     <!--================================= MAIN CONTENT =================================-->
     {% block content %}
     {% endblock content %}
+
+    <!--================================ FOOTER SECTION ================================-->
+    {% include 'footer.html' %}
+
+    <script src="{% static 'js/main_scripts.js' %}"></script>
 </body>
 </html>

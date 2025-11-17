@@ -3,13 +3,49 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-{% endblock extra_css%}
+<style>
+    /* Smooth fade animation for hero image */
+    #hero-random-image {
+        transition: opacity 2s ease-in-out;
+    }
+    #hero-random-image.fade-out {
+        opacity: 0;
+    }
+</style>
+{% endblock extra_css %}
 
 {% block title %}Home Page{% endblock title %}
 
-<!--================================= MAIN CONTENT =================================-->
 {% block content %}
 
+<!--================= IMAGES LIST FOR RANDOM SUBNET CARDS =================-->
+<script>
+    window.subnetImages = [
+        "{% static 'base/images/gradient_1.jpg' %}",
+        "{% static 'base/images/gradient_2.jpg' %}",
+        "{% static 'base/images/gradient_3.jpg' %}",
+        "{% static 'base/images/gradient_4.jpg' %}",
+        "{% static 'base/images/gradient_5.jpg' %}",
+        "{% static 'base/images/gradient_6.jpg' %}",
+        "{% static 'base/images/gradient_7.jpg' %}",
+        "{% static 'base/images/gradient_8.jpg' %}",
+        "{% static 'base/images/gradient_9.jpg' %}",
+        "{% static 'base/images/gradient_10.jpg' %}"
+    ];
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Shuffle images for subnet cards
+    window.shuffledImages = shuffle([...window.subnetImages]);
+</script>
+
+<!--================= MAIN HERO SECTION =================-->
 <main class="hero_section container">
     <h1>Subnetting Is Just<br>One Click Away</h1>
     <p>Divide your networks effortlessly with this subnetting tool—no more<br>suck at subnetting</p>
@@ -22,33 +58,39 @@
         <input class="calculate_btn btn" type="submit" value="Calculate" name="Calculate">
     </form>
 
-    <!-- <div class="hero_image" id="hero-image">
-        <img src="./images/subcal_hero_image.png" alt="Hero Image">
-    </div> -->
+    {% if not subnets %}
+    <div class="hero_image" id="hero-image">
+        <img src="{% static 'base/images/subcal_logo_white.svg' %}" alt="Subcal Logo" class="hero-image-logo">
+
+        <!-- Rotating hero image -->
+        <img id="hero-random-image"
+             src="{% static 'base/images/subcal_hero_image.png' %}"
+             alt="Hero Image">
+    </div>
+    {% endif %}
 </main>
 
+<!--================= SUBNET CARDS =================-->
 <section class="subnets_section container" id="subnets-section">
     {% for subnet in subnets %}
-    <!-- Subnet Card -->
     <div class="subnet_card">
         <div class="subnet_card_header">
-            <img src="./images/gradient_1.jpg" alt="Subnet background Image">
+            <img class="subnet_image" src="" alt="Subnet background Image">
 
             <div class="header_text">
                 <p class="main_ip_title">Main Network</p>
-                <h2 class="main_ip">{{ network_ip_address }}</h2>
+                <h2 class="main_ip">{{ subnet.network_ip_address }}</h2>
             </div>
         </div>
 
         <div class="subnet_content">
-            <div class="subnet_label_box">Subnet 1</div>
-
+            <div class="subnet_label_box">Subnet {{ forloop.counter }}</div>
             <div class="subnet_info">
                 <p><span>Subnet Mask: </span>{{ subnet.subnet_mask }}</p>
                 <p><span>Network IP: </span>{{ subnet.network_ip_address }}</p>
                 <p><span>Broadcast IP: </span>{{ subnet.broadcast_ip_address }}</p>
-                <p><span>Total Address Range: </span>{{ subnet.total_ip_address_range.0 }} - {{ subnet.total_ip_address_range.1 }}</p>
-                <p><span>Usable Range: </span>{{ subnet.usable_hosts_range.0 }} - {{ subnet.usable_hosts_range.1 }}</p>
+                <p><span>Total Address Range: </span>{{ subnet.total_ip_address_range }}</p>
+                <p><span>Usable Range: </span>{{ subnet.usable_hosts_range }}</p>
                 <p><span>Default Gateway: </span>{{ subnet.default_gateway }}</p>
             </div>
         </div>
@@ -60,5 +102,47 @@
     </div>
     {% endfor %}
 </section>
+
+<!--================= ASSIGN RANDOM IMAGES + HERO ROTATION =================-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    /*-----------------------------------------
+     * 1) Assign random images to subnet cards
+     -----------------------------------------*/
+    const cards = document.querySelectorAll(".subnet_card");
+    cards.forEach((card, index) => {
+        const img = card.querySelector(".subnet_image");
+        if (window.shuffledImages[index]) {
+            img.src = window.shuffledImages[index];
+        }
+    });
+
+    /*-----------------------------------------
+     * 2) Hero image rotation every 5 seconds
+     -----------------------------------------*/
+    const heroImg = document.getElementById("hero-random-image");
+
+    if (heroImg) {
+        let currentIndex = 0;
+
+        function changeHeroImage() {
+            heroImg.classList.add("fade-out");
+
+            setTimeout(() => {
+                heroImg.src = window.subnetImages[currentIndex];
+                currentIndex = (currentIndex + 1) % window.subnetImages.length;
+
+                heroImg.classList.remove("fade-out");
+            }, 600); // matches CSS transition
+        }
+
+        // Start rotation immediately
+        changeHeroImage();
+
+        // Change every 5 seconds
+        setInterval(changeHeroImage, 7000);
+    }
+});
+</script>
 
 {% endblock content %}

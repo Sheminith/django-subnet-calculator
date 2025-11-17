@@ -94,24 +94,24 @@ def subnet(ip: str, num_subnets: int):
 
     return all_subnets
 
-def display_subnets(subnet_list):
-    """Convert [192,168,10,0] to '192.168.10.0'"""
+def display_subnets(subnets_list):
+    """Return formatted subnet data with dotted IP notation."""
     def ip_list_to_str(ip_list):
         return '.'.join(str(octet) for octet in ip_list)
-    
-    """Display all the information of each subnet in a clean format."""
-    for i, subnet in enumerate(subnet_list):
-        print(f'============== SUBNET {i+1} ===============')
-        print(f'Subnet Mask: {subnet["subnet_mask"]}')
-        print(f'Network IP Address: {subnet["network_ip_address"]}')
-        print(f'Broadcast IP Address: {subnet["broadcast_ip_address"]}')
-        print(f'Total IP Address Range: {subnet["total_ip_address_range"][0]} - {subnet["total_ip_address_range"][1]}')
-        print(f'Usable Hosts Range: {subnet["usable_hosts_range"][0]} - {subnet["usable_hosts_range"][1]}')
-        print(f'Default Gateway: {subnet["default_gateway"]}')
-        print(f'Total IP Count: {subnet["total_ip_count"]}')
-        print(f'Usable IP Count: {subnet["usable_ip_count"]}')
-        print('')
 
-        return {
-            
-        }
+    formatted_output = []
+
+    for subnet in subnets_list:
+        formatted_output.append({
+            'subnet_mask': ip_list_to_str(subnet['subnet_mask']),
+            'network_ip_address': ip_list_to_str(subnet['network_ip_address']),
+            'broadcast_ip_address': ip_list_to_str(subnet['broadcast_ip_address']),
+            'total_ip_address_range': f"{ip_list_to_str(subnet['total_ip_address_range'][0])} - {ip_list_to_str(subnet['total_ip_address_range'][1])}",
+            'usable_hosts_range': f"{ip_list_to_str(subnet['usable_hosts_range'][0])} - {ip_list_to_str(subnet['usable_hosts_range'][1])}",
+            'default_gateway': ip_list_to_str(subnet['default_gateway']),
+            'total_ip_count': subnet['total_ip_count'],
+            'usable_ip_count': subnet['usable_ip_count'],
+        })
+
+    return formatted_output
+
