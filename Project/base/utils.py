@@ -33,12 +33,7 @@ def get_network_broadcast(ip):
     return binary_to_ip(network_ip_bin), binary_to_ip(broadcast_ip_bin)
 
 def get_address_ranges(ip):
-    """
-    Return total and usable address ranges for a subnet.
-    e.g.
-    Total address range: 192.168.10.0 - 192.168.10.63
-    Ussable hosts range: 192.168.10.1 - 192.168.10.62
-    """
+    """Return total and usable address ranges for a subnet."""
     network_ip, broadcast_ip = get_network_broadcast(ip)
 
     first_usable = network_ip.copy()
@@ -63,6 +58,10 @@ def create_subnet(ip):
     """Return a dictionary of all subnet details for a given CIDR IP."""
     network_ip, broadcast_ip, first_host, last_host = get_address_ranges(ip)
     subnet_mask = get_subnet_mask(split_network_host(ip)[1])
+    prefix = int(split_network_host(ip)[1])
+
+    total_ip_count = 2 ** (32 - prefix)
+    usable_ip_count = total_ip_count - 2  # subtract network and broadcast
 
     return {
         'subnet_mask': subnet_mask,
@@ -71,46 +70,48 @@ def create_subnet(ip):
         'total_ip_address_range': [network_ip, broadcast_ip],
         'usable_hosts_range': [first_host, last_host],
         'default_gateway': get_default_gateway(ip),
+        'total_ip_count': total_ip_count,
+        'usable_ip_count': usable_ip_count
     }
 
 def subnet(ip: str, num_subnets: int):
-    """
-    Input: 192.168.10.0/24, 4 subnets
-    Output: [ { subnet 1 details... }, { subnet 2 details... } ... ]
-    """
+    """Split network into subnets and return all details."""
     network, prefix = split_network_host(ip)
     prefix = int(prefix)
 
     needed_subnets = get_closest_two_power(num_subnets)
-
-    # Prefix of subnet = current prefix + square root of the number of subnets needed
     subnet_prefix = prefix + int(math.log2(needed_subnets))
-
     block_size = 2 ** (32 - subnet_prefix)
-
     base_ip = ipaddress.IPv4Address(network)
 
     all_subnets = []
-
     for i in range(needed_subnets):
         offset = i * block_size
-        new_ip = base_ip + offset # 192.168.10.0 + 64 = 192.168.10.64
+        new_ip = base_ip + offset
         subnet_ip = f"{new_ip}/{subnet_prefix}"
-
-        subnet = create_subnet(subnet_ip)
-        all_subnets.append(subnet)
+        subnet_detail = create_subnet(subnet_ip)
+        all_subnets.append(subnet_detail)
 
     return all_subnets
 
 def display_subnets(subnet_list):
+    """Convert [192,168,10,0] to '192.168.10.0'"""
+    def ip_list_to_str(ip_list):
+        return '.'.join(str(octet) for octet in ip_list)
+    
     """Display all the information of each subnet in a clean format."""
     for i, subnet in enumerate(subnet_list):
         print(f'============== SUBNET {i+1} ===============')
-        print(f'Subnet Mask: {subnet['subnet_mask']}')
-        print(f'Network IP Address: {subnet['network_ip_address']}')
-        print(f'Broadcast IP Address: {subnet['broadcast_ip_address']}')
-        print(f'Total IP Address Range: {subnet['total_ip_address_range'][0]} - {subnet['total_ip_address_range'][1]}')
-        print(f'Usable Hosts Range: {subnet['usable_hosts_range'][0]} - {subnet['usable_hosts_range'][1]}')
-        print(f'Default Gateway: {subnet['default_gateway']}')
-
+        print(f'Subnet Mask: {subnet["subnet_mask"]}')
+        print(f'Network IP Address: {subnet["network_ip_address"]}')
+        print(f'Broadcast IP Address: {subnet["broadcast_ip_address"]}')
+        print(f'Total IP Address Range: {subnet["total_ip_address_range"][0]} - {subnet["total_ip_address_range"][1]}')
+        print(f'Usable Hosts Range: {subnet["usable_hosts_range"][0]} - {subnet["usable_hosts_range"][1]}')
+        print(f'Default Gateway: {subnet["default_gateway"]}')
+        print(f'Total IP Count: {subnet["total_ip_count"]}')
+        print(f'Usable IP Count: {subnet["usable_ip_count"]}')
         print('')
+
+        return {
+            
+        }

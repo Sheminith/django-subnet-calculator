@@ -1,3 +1,15 @@
-<h1>LOGO</h1>
-<br>
-<hr>
+{% load static %}
+
+<!--================================= NAVIGATION BAR =================================-->
+<nav class="nav_bar">
+    <a href="#" class="logo">
+        <img src="{% static 'base/images/subcal_logo.svg' %}" alt="Logo" class="logo_img">
+    </a>
+
+    <a href="#">About</a>
+
+    <button class="nav_btn btn">
+        Download for
+        <img src="{% static 'base/images/windows_icon.png' %}" alt="Windows Icon">
+    </button>
+</nav>

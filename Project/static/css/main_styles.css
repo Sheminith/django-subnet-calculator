@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* ======================================= CSS VARIABLES ======================================= */
+:root {
+    --font-family: 'DM Sans', sans-serif;
+
+    --smallest-font-size: 0.75rem;
+    --medium-font-size-1: 0.938rem;
+    --medium-font-size-2: 1.25rem;
+    --medium-font-size-3: 2.188rem;
+    --largest-font-size: 5rem;
+
+    --regular-font-weight: 400;
+    --medium-font-weight: 500;
+    --semibold-font-weight: 600;
+
+    --primary-color: #000000;
+    --secondary-color: #FFFFFF;
+    --dark-grey-color: #1E1E1E;
+    --light-grey-color: #c5c5c5;
+
+    --main-text-color: #000000;
+    --muted-text-color: #808080;
+
+    --small-margin: 1.25rem;
+    --medium-margin: 2.5rem;
+    --big-margin: 5.313rem;
+}   
+
+
+/* ======================================= GLOBAL STYLES ======================================= */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+button,
+input {
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: #ffffff;
+}
+
+input {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: var(--medium-font-size-1);
+    font-weight: var(--semibold-font-weight);
+    color: var(--main-text-color);
+}
+
+h1 {
+    font-size: var(--largest-font-size);
+    font-weight: var(--regular-font-weight);
+    color: var(--main-text-color);
+    line-height: 82px;
+}
+
+p {
+    font-size: var(--medium-font-size-1);
+    font-weight: var(--regular-font-weight);
+    color: var(--main-text-color);
+}
+
+/* ======================================= REUSABLE CLASSES ======================================= */
+.container {
+    margin: 0 auto;
+    width: 1094px;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: var(--smallest-font-size);
+    font-weight: var(--semibold-font-weight);
+    color: #FFFFFF;
+    background-color: var(--primary-color);
+    padding: 10px 35px;
+    border-radius: 35px;
+}
+
+/* ===================== NAVIGATION BAR ===================== */
+.nav_bar {
+    margin-top: var(--small-margin);
+    margin-bottom: var(--small-margin);
+    margin-left: var(--big-margin);
+    margin-right: var(--big-margin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--semibold-font-weight);
+}
+
+.logo img{
+    width: 125px;
+    height: auto;
+}
+
+.nav_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav_btn img {
+    width: 20px;
+    height: 20px;
+}

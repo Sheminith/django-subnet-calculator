@@ -1,32 +1,64 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+{% endblock extra_css%}
 
 {% block title %}Home Page{% endblock title %}
 
+<!--================================= MAIN CONTENT =================================-->
 {% block content %}
-<h2>Home Page</h2>
 
-<section>
-    <form method="POST">
+<main class="hero_section container">
+    <h1>Subnetting Is Just<br>One Click Away</h1>
+    <p>Divide your networks effortlessly with this subnetting tool—no more<br>suck at subnetting</p>
+    
+    <form class="main_input" method="POST">
         {% csrf_token %}
-        <input type="text" name="ip_address" placeholder="192.168.10.0/24">
-        <input type="number" name="num_subnets" placeholder="How many subnets">
-        <input type="submit" name="Calculate">
+        <input type="text" placeholder="192.168.10.0/24" class="ip_input" name="ip_address">
+        <span class="input_divider">/</span>
+        <input type="number" placeholder="4 subnets" class="subnet_input" name="num_subnets">
+        <input class="calculate_btn btn" type="submit" value="Calculate" name="Calculate">
     </form>
 
-    <div>
-        {% for subnet in subnets %}
+    <!-- <div class="hero_image" id="hero-image">
+        <img src="./images/subcal_hero_image.png" alt="Hero Image">
+    </div> -->
+</main>
 
-        <div>
-            <p>Subnet Mask: {{ subnet.subnet_mask }}</p>
-            <p>Network IP Address: {{ subnet.network_ip_address }}</p>
-            <p>Broadcast IP Address: {{ subnet.broadcast_ip_address }}</p>
-            <p>Total IP Address Range: {{ subnet.total_ip_address_range.0 }} - {{ subnet.total_ip_address_range.1 }}</p>
-            <p>Usable Hosts Range: {{ subnet.usable_hosts_range.0 }} - {{ subnet.usable_hosts_range.1 }}</p>
-            <p>Default Gateway: {{ subnet.default_gateway }}</p>
+<section class="subnets_section container" id="subnets-section">
+    {% for subnet in subnets %}
+    <!-- Subnet Card -->
+    <div class="subnet_card">
+        <div class="subnet_card_header">
+            <img src="./images/gradient_1.jpg" alt="Subnet background Image">
+
+            <div class="header_text">
+                <p class="main_ip_title">Main Network</p>
+                <h2 class="main_ip">{{ network_ip_address }}</h2>
+            </div>
         </div>
-        <br>
-        
-        {% endfor %}
+
+        <div class="subnet_content">
+            <div class="subnet_label_box">Subnet 1</div>
+
+            <div class="subnet_info">
+                <p><span>Subnet Mask: </span>{{ subnet.subnet_mask }}</p>
+                <p><span>Network IP: </span>{{ subnet.network_ip_address }}</p>
+                <p><span>Broadcast IP: </span>{{ subnet.broadcast_ip_address }}</p>
+                <p><span>Total Address Range: </span>{{ subnet.total_ip_address_range.0 }} - {{ subnet.total_ip_address_range.1 }}</p>
+                <p><span>Usable Range: </span>{{ subnet.usable_hosts_range.0 }} - {{ subnet.usable_hosts_range.1 }}</p>
+                <p><span>Default Gateway: </span>{{ subnet.default_gateway }}</p>
+            </div>
+        </div>
+
+        <div class="subnet_bottom_stats">
+            <h1 class="usable_ip">{{ subnet.usable_ip_count }} <span>Usable</span></h1>
+            <h1 class="total_ip">{{ subnet.total_ip_count }} <span>Total</span></h1>
+        </div>
     </div>
+    {% endfor %}
 </section>
+
 {% endblock content %}
