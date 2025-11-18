@@ -3,34 +3,40 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-<style>
-    /* Smooth fade animation for hero image */
-    #hero-random-image {
-        transition: opacity 2s ease-in-out;
-    }
-    #hero-random-image.fade-out {
-        opacity: 0;
-    }
-</style>
 {% endblock extra_css %}
 
 {% block title %}Home Page{% endblock title %}
 
 {% block content %}
 
-<!--================= IMAGES LIST FOR RANDOM SUBNET CARDS =================-->
+<script src="{% static 'base/js/script.js' %}"></script>
 <script>
+    // Images list for random image selection for subnets and hero image
     window.subnetImages = [
-        "{% static 'base/images/gradient_1.jpg' %}",
-        "{% static 'base/images/gradient_2.jpg' %}",
-        "{% static 'base/images/gradient_3.jpg' %}",
-        "{% static 'base/images/gradient_4.jpg' %}",
-        "{% static 'base/images/gradient_5.jpg' %}",
+        "{% static 'base/images/gradient_1.png' %}",
+        "{% static 'base/images/gradient_2.png' %}",
+        "{% static 'base/images/gradient_3.png' %}",
+        "{% static 'base/images/gradient_4.png' %}",
+        "{% static 'base/images/gradient_5.png' %}",
         "{% static 'base/images/gradient_6.jpg' %}",
-        "{% static 'base/images/gradient_7.jpg' %}",
-        "{% static 'base/images/gradient_8.jpg' %}",
+        "{% static 'base/images/gradient_7.png' %}",
+        "{% static 'base/images/gradient_8.png' %}",
         "{% static 'base/images/gradient_9.jpg' %}",
-        "{% static 'base/images/gradient_10.jpg' %}"
+        "{% static 'base/images/gradient_10.jpg' %}",
+        "{% static 'base/images/gradient_11.jpeg' %}",
+        "{% static 'base/images/gradient_12.jpeg' %}",
+        "{% static 'base/images/gradient_13.jpeg' %}",
+        "{% static 'base/images/gradient_14.jpeg' %}",
+        "{% static 'base/images/gradient_15.jpeg' %}",
+        "{% static 'base/images/gradient_16.jpeg' %}",
+        "{% static 'base/images/gradient_17.jpeg' %}",
+        "{% static 'base/images/gradient_18.jpeg' %}",
+        "{% static 'base/images/gradient_19.jpeg' %}",
+        "{% static 'base/images/gradient_20.jpeg' %}",
+        "{% static 'base/images/gradient_21.jpeg' %}",
+        "{% static 'base/images/gradient_22.jpeg' %}",
+        "{% static 'base/images/gradient_23.jpeg' %}",
+        "{% static 'base/images/gradient_24.jpeg' %}",
     ];
 
     function shuffle(array) {
@@ -52,10 +58,10 @@
     
     <form class="main_input" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="192.168.10.0/24" class="ip_input" name="ip_address">
+        <input type="text" placeholder="192.168.10.0/24" class="ip_input" name="ip_address" value="{{ ip_address }}" autocomplete="off">
         <span class="input_divider">/</span>
-        <input type="number" placeholder="4 subnets" class="subnet_input" name="num_subnets">
-        <input class="calculate_btn btn" type="submit" value="Calculate" name="Calculate">
+        <input type="number" placeholder="4 subnets" class="subnet_input" name="num_subnets" value="{{ num_subnets }}">
+        <input class="calculate_btn btn" type="submit" value="Calculate">
     </form>
 
     {% if not subnets %}
@@ -103,46 +109,7 @@
     {% endfor %}
 </section>
 
-<!--================= ASSIGN RANDOM IMAGES + HERO ROTATION =================-->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    /*-----------------------------------------
-     * 1) Assign random images to subnet cards
-     -----------------------------------------*/
-    const cards = document.querySelectorAll(".subnet_card");
-    cards.forEach((card, index) => {
-        const img = card.querySelector(".subnet_image");
-        if (window.shuffledImages[index]) {
-            img.src = window.shuffledImages[index];
-        }
-    });
-
-    /*-----------------------------------------
-     * 2) Hero image rotation every 5 seconds
-     -----------------------------------------*/
-    const heroImg = document.getElementById("hero-random-image");
-
-    if (heroImg) {
-        let currentIndex = 0;
-
-        function changeHeroImage() {
-            heroImg.classList.add("fade-out");
-
-            setTimeout(() => {
-                heroImg.src = window.subnetImages[currentIndex];
-                currentIndex = (currentIndex + 1) % window.subnetImages.length;
-
-                heroImg.classList.remove("fade-out");
-            }, 600); // matches CSS transition
-        }
-
-        // Start rotation immediately
-        changeHeroImage();
-
-        // Change every 5 seconds
-        setInterval(changeHeroImage, 7000);
-    }
-});
-</script>
+<!-- Used to find whether subnets are generated, because we can't use 'if subnets' jinja tag inside js code -->
+<div id="subnet-flag" data-has-subnets="{{ subnets|length|default:0 }}"></div>
 
 {% endblock content %}

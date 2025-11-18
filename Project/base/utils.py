@@ -61,7 +61,7 @@ def create_subnet(ip):
     prefix = int(split_network_host(ip)[1])
 
     total_ip_count = 2 ** (32 - prefix)
-    usable_ip_count = total_ip_count - 2  # subtract network and broadcast
+    usable_ip_count = total_ip_count - 2 if total_ip_count - 2 > 0 else 'No'
 
     return {
         'subnet_mask': subnet_mask,
@@ -85,7 +85,7 @@ def subnet(ip: str, num_subnets: int):
     base_ip = ipaddress.IPv4Address(network)
 
     all_subnets = []
-    for i in range(needed_subnets):
+    for i in range(num_subnets):
         offset = i * block_size
         new_ip = base_ip + offset
         subnet_ip = f"{new_ip}/{subnet_prefix}"

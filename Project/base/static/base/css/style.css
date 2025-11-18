@@ -1,6 +1,13 @@
-/* ==================================== MAIN CONTENT ==================================== */
+/* ============================================= MAIN CONTENT ============================================ */
 
 /* ====================== HERO SECTION ====================== */
+#hero-random-image {
+    transition: opacity 2s ease-in-out;
+}
+#hero-random-image.fade-out {
+    opacity: 0;
+}
+
 .hero_section {
     margin-top: var(--big-margin);
     display: flex;
@@ -30,7 +37,6 @@
     transition: box-shadow 0.3s, border-color 0.3s;
 }
 
-/* Shadow effect when any input inside is focused */
 .main_input:has(input:focus) {
     border-color: var(--primary-color);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
@@ -38,6 +44,8 @@
 
 .main_input .ip_input,
 .main_input .subnet_input {
+    font-size: var(--medium-font-size-1);
+    font-weight: var(--medium-font-weight);
     padding: 15px;
     margin: 0 10px;
     border: none;
@@ -46,17 +54,8 @@
 .main_input .ip_input::placeholder,
 .main_input .subnet_input::placeholder {
     font-size: var(--medium-font-size-1);
+    font-weight: var(--regular-font-weight);
     color: var(--muted-text-color);
-}
-
-.main_input .ip_input:focus,
-.main_input .subnet_input:focus {
-    background-color: transparent;
-}
-
-.input_divider {
-    font-size: 35px;
-    font-weight: 200;
 }
 
 .main_input .calculate_btn {
@@ -66,10 +65,10 @@
     font-weight: var(--semibold-font-weight);
     padding: 20px 60px;
     border-radius: 25px;
-    transition: transform 0.3s ease, box-shadow 0.2s ease; /* smooth animation */
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
 }
 
-.main_input .calculate_btn:hover{
+.main_input .calculate_btn:hover {
     transform: scale(0.98);
     font-weight: var(--medium-font-weight);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -100,10 +99,10 @@
     z-index: 2;
 }
 
-
 /* ====================== SUBNETS SECTION ====================== */
 .subnets_section {
-    margin-top: var(--big-margin);
+    margin-top: var(--medium-margin);
+    padding-top: var(--medium-margin);
     margin-bottom: var(--big-margin);
     display: flex;
     flex-wrap: wrap;
@@ -128,6 +127,7 @@
 }
 
 .subnet_card_header {
+    color: #FFFFFF;
     position: relative;
     width: 100%;
     height: 150px;
@@ -147,16 +147,10 @@
     text-align: right;
 }
 
-.header_text .main_ip_title {
-    opacity: 0.75;
-    font-size: var(--medium-font-size-1);
+.main_ip_title {
     color: #FFFFFF;
-}
-
-.header_text .main_ip {
-    font-size: var(--medium-font-size-2);
-    font-weight: var(--semibold-font-weight);
-    color: #FFFFFF;
+    font-weight: var(--regular-font-weight);
+    opacity: 0.7;
 }
 
 .subnet_content {
@@ -167,7 +161,6 @@
     position: relative;
 }
 
-/* Label box with angled corner */
 .subnet_label_box {
     position: absolute;
     top: -12px;
@@ -175,11 +168,9 @@
     background-color: var(--dark-grey-color);
     padding: 20px 110px 20px 20px;
     border-radius: 12px 12px 0 0;
-    font-size: var(--medium-sma-size-1);
+    font-size: var(--medium-font-size-1);
     font-weight: var(--medium-font-weight);
     color: #FFFFFF;
-
-    /* angled right edge */
     clip-path: polygon(0 0, 75% 0, 100% 100%, 0 100%);
 }
 
@@ -215,4 +206,85 @@
     font-size: var(--medium-font-size-1);
     font-weight: var(--regular-font-weight);
     color: var(--light-grey-color);
+}
+
+/* ===================== RESPONSIVE MEDIA QUERIES ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .hero_section h1 {
+        font-size: calc(var(--largest-font-size) - 0.5rem);
+        line-height: 80px;
+    }
+
+    .main_input .ip_input,
+    .main_input .subnet_input,
+    .main_input .calculate_btn {
+        width: 100%;
+    }
+
+    .main_input .calculate_btn {
+        padding: 20px;
+    }
+
+    .subnet_card {
+        width: 90%;
+    }
+
+    .subnet_label_box {
+        padding: 15px 80px 15px 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .hero_section h1 {
+        font-size: calc(var(--largest-font-size) - 1.5rem);
+        line-height: 60px;
+    }
+    
+    .hero-image-logo {
+        transform: translate(-48%, -50%) scale(0.2);
+    }
+
+    .main_input {
+        padding: 0 4px 0 32px;
+    }
+
+    .main_input .ip_input,
+    .main_input .subnet_input {
+        padding: 0;
+        margin: 0 10px;
+    }
+
+    .main_input .subnet_input {
+        margin-right: 5px;
+    }
+
+    .main_input .calculate_btn {
+        padding: 20px;
+        margin: 4px 0;
+    }
+
+    .hero_image {
+        height: 300px;
+    }
+
+    .subnet_card {
+        width: 100%;
+    }
+
+    .subnet_label_box {
+        padding: 12px 60px 12px 12px;
+        font-size: 0.85rem;
+    }
+
+    .subnet_content {
+        padding: 30px 15px 5px 15px;
+    }
+
+    .subnet_bottom_stats h1 {
+        font-size: 1.5rem;
+    }
 }

@@ -26,8 +26,14 @@
     --small-margin: 1.25rem;
     --medium-margin: 2.5rem;
     --big-margin: 5.313rem;
-}   
+}
 
+@media (max-width: 768px) {
+    :root {
+        --smallest-font-size: 0.7rem;
+        --medium-font-size-1: 0.875rem;
+    }
+}
 
 /* ======================================= GLOBAL STYLES ======================================= */
 * {
@@ -36,13 +42,7 @@
     margin: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body,
-button,
-input {
+body, button, input {
     font-family: var(--font-family);
 }
 
@@ -65,13 +65,14 @@ h1 {
     font-size: var(--largest-font-size);
     font-weight: var(--regular-font-weight);
     color: var(--main-text-color);
-    line-height: 82px;
+    line-height: 82px; /* keep line-height */
 }
 
 p {
     font-size: var(--medium-font-size-1);
     font-weight: var(--regular-font-weight);
     color: var(--main-text-color);
+    line-height: 1.4; /* keep text spacing consistent */
 }
 
 /* ======================================= REUSABLE CLASSES ======================================= */
@@ -92,25 +93,36 @@ p {
 
 /* ===================== NAVIGATION BAR ===================== */
 .nav_bar {
-    margin-top: var(--small-margin);
-    margin-bottom: var(--small-margin);
-    margin-left: var(--big-margin);
-    margin-right: var(--big-margin);
+    margin: var(--small-margin) var(--big-margin);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: var(--semibold-font-weight);
 }
 
-.logo img{
+.logo img {
     width: 125px;
     height: auto;
+}
+
+.about_page {
+    transition: transform 0.3s ease;
+}
+
+.about_page:hover {
+    transform: scale(1.02);
 }
 
 .nav_btn {
     display: inline-flex;
     align-items: center;
     gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav_btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .nav_btn img {
@@ -176,4 +188,55 @@ p {
     font-size: var(--smallest-font-size);
     color: var(--muted-text-color);
     font-weight: var(--regular-font-weight);
+}
+
+/* ===================== RESPONSIVE MEDIA QUERIES ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .social_icons img {
+        width: 18px;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .nav_btn {
+        padding: 10px 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .nav_bar {
+        margin: calc(var(--small-margin) - 5px) var(--small-margin);
+    }
+
+    .about_page .nav_btn {
+        font-size: 14px;
+    }
+
+    .logo img {
+        width: 110px;
+    }
+
+    .container {
+        width: 88%;
+        margin: 0 auto;
+    }
+
+    .footer_logo {
+        width: 90px;
+    }
+
+    .social_icons img {
+        width: 20px;
+    }
+
+    .profile_image img {
+        width: 30px;
+    }
+
 }

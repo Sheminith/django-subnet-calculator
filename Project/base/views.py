@@ -4,6 +4,8 @@ from base.utils import split_network_host, subnet, display_subnets
 def create_subnets(request):
     subnets = None
     network_ip_address = None
+    ip_address = ''
+    num_subnets = ''
 
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
@@ -15,5 +17,10 @@ def create_subnets(request):
         # Get network IP address without CIDR
         network_ip_address = split_network_host(ip_address)[0]
 
-    context = {'subnets': subnets, 'network_ip_address':network_ip_address}
+    context = {
+        'subnets': subnets,
+        'network_ip_address':network_ip_address,
+        'ip_address': ip_address,
+        'num_subnets': num_subnets,
+    }
     return render(request, 'base/home.html', context)
