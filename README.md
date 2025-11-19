@@ -13,12 +13,10 @@
   <summary>Table of Contents</summary>
   <ol>
     <!-- . -->
-    <li><a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#features">Features</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
     <!-- . -->
+    <li><a href="#features">Features</a></li>
+      <!-- . -->
     <li><a href="#built-with">Built With</a></li>
     <!-- . -->
     <li><a href="#setup--installation">Setup & Installation</a></li>
@@ -34,24 +32,20 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Subcal was created as a personal learning project during my first year as an AI undergraduate student at the Asia Pacific Institute of Information Technology (APIIT). When we were introduced to the Networking module, subnetting initially felt challenging, even though I usually learn concepts fast. To become better, I watched tutorials, practiced manually, and slowly the concept clicked. During practical sessions, we repeatedly calculated subnets by hand, and that sparked an idea,
 
 > “Why not build a tool that does this instantly?”
 
-So I first wrote the logic in pure Python, then integrated it into Django to create a full web application. I designed the UI using "Figma", and implemented it using clean "HTML, CSS", and "JavaScript".
+So I first wrote the logic in pure Python, then integrated it into Django to create a full web application. I designed the UI using "Figma", and implemented it using clean "HTML, CSS", and "JavaScript". This is how Subcal was built!
 
 ---
 
-**Features**
+## Features
 
 * 🔢 Instant Subnet Calculation based on a parent network IP
 * ⚡ One-click generation
 * 🎨 Clean, modern UI
 * 📱 Responsive design (mobile + tablet + desktop)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
 ---
 
@@ -113,7 +107,8 @@ This project is open-source under the **MIT License**.
 **Michele Sheminith**
 <br>
 AI Undergraduate – APIIT
-“If Elon did it, so can you.”
+<br>
+*“If Elon did it, so can you.”*
 
 ---
 
