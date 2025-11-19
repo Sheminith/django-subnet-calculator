@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* ======================================= CSS VARIABLES ======================================= */
+:root {
+    --font-family: 'DM Sans', sans-serif;
+
+    --smallest-font-size: 0.75rem;
+    --medium-font-size-1: 0.938rem;
+    --medium-font-size-2: 1.25rem;
+    --medium-font-size-3: 2.188rem;
+    --largest-font-size: 5rem;
+
+    --regular-font-weight: 400;
+    --medium-font-weight: 500;
+    --semibold-font-weight: 600;
+
+    --primary-color: #000000;
+    --secondary-color: #FFFFFF;
+    --dark-grey-color: #1E1E1E;
+    --light-grey-color: #c5c5c5;
+
+    --main-text-color: #000000;
+    --muted-text-color: #808080;
+
+    --smallest-margin: 0.875rem;
+    --small-margin: 1.25rem;
+    --medium-margin: 2.5rem;
+    --big-margin: 5.313rem;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --smallest-font-size: 0.7rem;
+        --medium-font-size-1: 0.875rem;
+    }
+}
+
+/* ======================================= GLOBAL STYLES ======================================= */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, button, input {
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: #ffffff;
+}
+
+input {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: var(--medium-font-size-1);
+    font-weight: var(--semibold-font-weight);
+    color: var(--main-text-color);
+}
+
+h1 {
+    font-size: var(--largest-font-size);
+    font-weight: var(--regular-font-weight);
+    color: var(--main-text-color);
+    line-height: 82px; /* keep line-height */
+}
+
+p {
+    font-size: var(--medium-font-size-1);
+    font-weight: var(--regular-font-weight);
+    color: var(--main-text-color);
+    line-height: 1.4; /* keep text spacing consistent */
+}
+
+/* ======================================= REUSABLE CLASSES ======================================= */
+.container {
+    margin: 0 auto;
+    width: 1094px;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: var(--smallest-font-size);
+    font-weight: var(--semibold-font-weight);
+    color: #FFFFFF;
+    background-color: var(--primary-color);
+    padding: 10px 35px;
+    border-radius: 35px;
+}
+
+/* ===================== NAVIGATION BAR ===================== */
+.nav_bar {
+    margin: var(--small-margin) var(--big-margin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--semibold-font-weight);
+}
+
+.logo img {
+    width: 125px;
+    height: auto;
+}
+
+.about_page {
+    transition: transform 0.3s ease;
+}
+
+.about_page:hover {
+    transform: scale(1.02);
+}
+
+.nav_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav_btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.nav_btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===================== FOOTER SECTION ===================== */
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer_logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: var(--smallest-margin);
+}
+
+.copyright_text {
+    font-size: var(--smallest-font-size);
+    font-weight: var(--medium-font-weight);
+    color: var(--muted-text-color);
+    margin-bottom: var(--smallest-margin);
+}
+
+.footer .social_icons {
+    display: flex;
+    column-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--big-margin);
+}
+
+.social_icons img {
+    width: 15px;
+    height: auto;
+}
+
+.footer hr {
+    width: 85%;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 1.875rem;
+}
+
+.footer .michele_profile {
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--big-margin);
+}
+
+.profile_image img {
+    width: 25px;
+    height: auto;
+}
+
+.michele_profile p {
+    font-style: italic;
+    font-size: var(--smallest-font-size);
+    color: var(--muted-text-color);
+    font-weight: var(--regular-font-weight);
+}
+
+/* ===================== RESPONSIVE MEDIA QUERIES ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .social_icons img {
+        width: 18px;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .nav_btn {
+        padding: 10px 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .nav_bar {
+        margin: calc(var(--small-margin) - 5px) var(--small-margin);
+    }
+
+    .about_page .nav_btn {
+        font-size: 14px;
+    }
+
+    .logo img {
+        width: 110px;
+    }
+
+    .container {
+        width: 88%;
+        margin: 0 auto;
+    }
+
+    .footer_logo {
+        width: 90px;
+    }
+
+    .social_icons img {
+        width: 20px;
+    }
+
+    .profile_image img {
+        width: 30px;
+    }
+
+}
